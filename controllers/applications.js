@@ -4,7 +4,12 @@ const router = express.Router()
 const User = require('../models/user')
 
 router.get('/', (req, res) => {
-    res.send('Applications index route!')
+    try {
+        res.render('applications/index.ejs')
+    } catch(error) {
+        console.log(error)
+        res.redirect('/')
+    }
 })
 
 module.exports = router

@@ -16,6 +16,8 @@
   <% } %>
   <p>Current Status: <%= application.status %></p>
 
+  <a href="/users/<%=user._id%>/applications/<%=application._id%>/edit">EDIT</a>
+
   <form action="/users/<%=user._id%>/applications/<%=application._id%>?_method=DELETE" method="POST">
     <button type="submit">DELETE</button>
   </form>

@@ -5,6 +5,8 @@ const router = express.Router();
 
 const User = require('../models/user');
 
+const VALID_STATUS = ['Interested', 'Applied', 'Interviewing', 'Rejected', 'Accepted'];
+
 router.get('/', async (req, res) => {
   try {
     const currentUser = await User.findById(req.session.user._id);
@@ -69,6 +71,38 @@ router.delete('/:applicationId', async (req, res, next) => {
   } catch (error) {
     console.log(error);
 
+    res.redirect('/');
+  }
+});
+
+router.get('/:applicationId/edit', async (req, res, next) => {
+  try {
+    const currentUser = await User.findById(req.session.user._id);
+
+    const application = currentUser.applications.id(req.params.applicationId);
+
+    res.render('applications/edit.ejs', { application, statusOptions: VALID_STATUS });
+  } catch (error) {
+    console.error(error);
+    res.redirect('/');
+  }
+});
+
+router.put('/:applicationId', async (req, res, next) => {
+  try {
+    const currentUser = await User.findById(req.session.user._id);
+
+    const application = currentUser.applications.id(req.params.applicationId);
+
+    req.body.date = new Date(req.body.date);
+
+    application.set(req.body);
+
+    await currentUser.save();
+
+    res.redirect(`/users/${currentUser._id}/applications/${req.params.applicationId}`);
+  } catch (error) {
+    console.error(error);
     res.redirect('/');
   }
 });

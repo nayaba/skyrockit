@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,13 @@
     "method-override": "^3.0.0",
     "mongoose": "^8.0.1",
     "morgan": "^1.10.0"
+  },
+  "overrides": {
+    "glob": "10.4.2",
+    "rimraf": "5.0.7",
+    "npmlog": "7.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
